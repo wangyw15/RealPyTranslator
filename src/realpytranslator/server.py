@@ -36,4 +36,4 @@ def read_root(content: str, source: str, target: str):
     _logger.info(f"[Translator] Content: {content}")
     translation = get_translation(content, source, target)
     _logger.info(f"[Translator] Translation: {translation}")
-    return { "translation": translation or content }
+    return {"translation": translation or content}
