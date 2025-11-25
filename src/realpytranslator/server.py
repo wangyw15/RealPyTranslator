@@ -33,7 +33,13 @@ def get_translation(content: str, source_language: str, target_language: str) ->
 
 @app.get("/translate")
 def read_root(content: str, source: str, target: str):
-    _logger.info(f"[Translator] Content: {content}")
+    _logger.info(f"[Translator] [Server] Content: {content}")
     translation = get_translation(content, source, target)
-    _logger.info(f"[Translator] Translation: {translation}")
-    return {"translation": translation or content}
+    _logger.info(f"[Translator] [Server] Translation: {translation}" )
+    return { "translation": translation or content}
+
+
+@app.get("/log")
+def log(content: str):
+    _logger.info(f"[Translator] [Client] {content}")
+    return content
