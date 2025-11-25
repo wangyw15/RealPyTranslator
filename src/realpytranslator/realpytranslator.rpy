@@ -8,7 +8,7 @@ init python:
 
         def translate(self, content):
             response = requests.get(
-                f"http://127.0.0.1:8080/translate?content={content}&source=英文&target=简体中文"
+                f"http://127.0.0.1:8080/translate?name={config.name}&content={content}&source=英文&target=简体中文"
             )
             if response.ok:
                 return response.json()["translation"]
@@ -16,7 +16,7 @@ init python:
             
         def log(self, content):
             response = requests.get(
-                f"http://127.0.0.1:8080/log?content={content}"
+                f"http://127.0.0.1:8080/log?name={config.name}&content={content}"
             )
             return response.ok
 
@@ -48,7 +48,6 @@ init python:
             t.start()
 
     translator = RealPyTranslatorClient()
-    translator.instance = translator
     try:
         config.all_character_callbacks.append(translator.character_callback)
     except e:

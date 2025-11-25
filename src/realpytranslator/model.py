@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Annotated
 
 from ipaddress import IPv4Address
@@ -26,6 +27,12 @@ class ServerModel(BaseModel):
     port: Annotated[int, AfterValidator(_port_validator)] = 8080
 
 
+class TranslateModel(BaseModel):
+    source: str = "日文"
+    target: str = "简体中文"
+    persistence: Path = Path("translation.db")
+
+
 class LLMModel(BaseModel):
     base_url: HttpUrl = HttpUrl("http://localhost:11434/v1")
     api_key: str = ""
@@ -35,6 +42,7 @@ class LLMModel(BaseModel):
 
 class Settings(BaseSettings):
     server: ServerModel = ServerModel()
+    translate: TranslateModel = TranslateModel()
     llm: LLMModel = LLMModel()
 
     model_config = SettingsConfigDict(
